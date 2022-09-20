@@ -40,19 +40,23 @@ const getUserExercises = async (userID, from, to, limit) => {
     let sql = 'SELECT duration, description, date FROM Exercises WHERE userId = ?';
 
     if (from && to) {
-        return await myDB.all(sql + ` AND date >= ? AND date <= ? ${limit ? 'LIMIT ?' : ''}`, [userID, from, to, limit]);
+        sql += ` AND date >= ? AND date <= ?` + ' ORDER BY date ASC' + `${limit ? ' LIMIT ?' : ''}`;
+        return await myDB.all(sql, [userID, from, to, limit]);
     }
 
     if (from && !to) {
-        return await myDB.all(sql + ` AND date >= ? ${limit ? 'LIMIT ?' : ''}`, [userID, from, limit]);
+        sql += ` AND date >= ?` + ' ORDER BY date ASC' + `${limit ? ' LIMIT ?' : ''}`;
+        return await myDB.all(sql, [userID, from, limit]);
     }
 
     if (!from && to) {
-        return await myDB.all(sql + ` AND date <= ? ${limit ? 'LIMIT ?' : ''}`, [userID, to, limit]);
+        sql += ' AND date <= ?' + ' ORDER BY date ASC' + `${limit ? ' LIMIT ?' : ''}`;
+        return await myDB.all(sql, [userID, to, limit]);
     }
 
     if (!from && !to) {
-        return await myDB.all(sql + ` ${limit ? 'LIMIT ?' : ''}`, [userID, limit]);
+        sql += ' ORDER BY date ASC' + ` ${limit ? 'LIMIT ?' : ''}`;
+        return await myDB.all(sql, [userID, limit]);
     }
 }
 
