@@ -6,6 +6,7 @@ const logsController = require('../controllers/logsController');
 router.get('/api/users', usersController.getAllUsers);
 router.post('/api/users', usersController.createUser);
 router.post('/api/users/:_id/exercises', exerciseController.createUserExercises);
+router.post('/api/users//exercises', exerciseController.showErrorUrl);
 router.get('/api/users/:_id/logs', logsController.getUserLogs);
 
 module.exports = router;

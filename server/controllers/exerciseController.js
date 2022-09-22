@@ -17,6 +17,11 @@ const createUserExercises = async (req, res) => {
     }
 }
 
+const showErrorUrl = async (req, res) => {
+    res.status(400).send({status: 400, message: 'Used id is not found, this route does not exist'});
+}
+
 module.exports = {
     createUserExercises,
+    showErrorUrl
 }
