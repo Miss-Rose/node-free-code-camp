@@ -1,6 +1,6 @@
 const { getUserById } = require('../managers/userManager');
 const { isDateCorrect } = require('../helpers/checkDate');
-const { getUserExercises, getExerciseByUserID } = require('../managers/exerciseManager');
+const { getUserExercises } = require('../managers/exerciseManager');
 
 const getUserLogs = async (req, res) => {
     try {
@@ -18,8 +18,7 @@ const getUserLogs = async (req, res) => {
         }
 
         user.exercises = await getUserExercises(_id, from, to, limit);
-        const userExercises = await getExerciseByUserID(_id);
-        user.count = userExercises.length;
+        user.count = user.exercises.length;
 
         res.json(user);
     } catch(err) {

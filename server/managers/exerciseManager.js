@@ -67,14 +67,7 @@ const getUserExercises = async (userID, from, to, limit) => {
     }
 }
 
-const getExerciseByUserID = async (userID) => {
-    return await myDB.all('SELECT * FROM Exercises WHERE userId = ?', [userID]);
-}
-
 module.exports = {
     createExercise,
-    getUserExercises,
-    getExerciseByUserID
+    getUserExercises
 }
-
-
