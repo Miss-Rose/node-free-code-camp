@@ -5,7 +5,11 @@ const addUser = async (user) => {
 
     try {
         const { lastID } = await myDB.run(query, [user]);
-        return await myDB.all('SELECT * FROM Users WHERE _id = ?', [lastID]);
+
+        return {
+            "_id": lastID,
+            "username": user
+        };
     } catch (err) {
         if (err.message === 'SQLITE_CONSTRAINT: UNIQUE constraint failed: Users.username') {
             throw new Error('cannot post, user with such name already exist');

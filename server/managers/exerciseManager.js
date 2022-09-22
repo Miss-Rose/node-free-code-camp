@@ -32,7 +32,14 @@ const createExercise = async (userID, exercise) => {
     }
 
     const { lastID } = statement;
-    return await myDB.all('SELECT * FROM Exercises WHERE _id = ?', [lastID]);
+
+    return  {
+        "_id": lastID,
+        "description": description,
+        "duration": duration,
+        "date": date,
+        "userId": userID
+    }
 }
 
 const getUserExercises = async (userID, from, to, limit) => {
